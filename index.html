@@ -3,75 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RepFlow</title>
-  <link rel="manifest" href="manifest.json" />
+  <title>RepFlow - Workout Tracker</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="app.js"></script>
 </head>
 <body>
-  <header>
-    <h1>RepFlow</h1>
-    <nav>
-      <button data-day="push" class="active">Push</button>
-      <button data-day="pull">Pull</button>
-      <button data-day="legs">Legs</button>
-    </nav>
-  </header>
-  <main>
-    <section id="push" class="day active">
-      <h2>Push Day</h2>
-      <ul>
-        <li><label><input type="checkbox" data-ex="flat-bench" /> Flat Barbell Bench Press</label></li>
-        <li><label><input type="checkbox" data-ex="incline-db" /> Incline Dumbbell Press</label></li>
-        <li><label><input type="checkbox" data-ex="chest-fly" /> Chest Cable Flys</label></li>
-        <li><label><input type="checkbox" data-ex="db-shoulder-press" /> Seated Dumbbell Shoulder Press</label></li>
-        <li><label><input type="checkbox" data-ex="lateral-raises" /> Lateral Raises</label></li>
-        <li><label><input type="checkbox" data-ex="rear-delt-fly" /> Rear Delt Flys</label></li>
-        <li><label><input type="checkbox" data-ex="rope-pushdown" /> Triceps Rope Pushdown</label></li>
-        <li><label><input type="checkbox" data-ex="overhead-db" /> Overhead Dumbbell Extension</label></li>
-        <li><label><input type="checkbox" data-ex="close-grip-pushups" /> Close-Grip Push-Ups</label></li>
-      </ul>
-    </section>
+  <h1>RepFlow Workout Tracker</h1>
 
-    <section id="pull" class="day">
-      <h2>Pull Day</h2>
-      <ul>
-        <li><label><input type="checkbox" data-ex="lat-pulldown" /> Lat Pulldown</label></li>
-        <li><label><input type="checkbox" data-ex="barbell-rows" /> Barbell Rows</label></li>
-        <li><label><input type="checkbox" data-ex="seated-cable-row" /> Seated Cable Row</label></li>
-        <li><label><input type="checkbox" data-ex="barbell-curls" /> Barbell Curls</label></li>
-        <li><label><input type="checkbox" data-ex="hammer-curls" /> Hammer Curls</label></li>
-        <li><label><input type="checkbox" data-ex="preacher-curls" /> Preacher Curls</label></li>
-        <li><label><input type="checkbox" data-ex="face-pulls" /> Face Pulls</label></li>
-        <li><label><input type="checkbox" data-ex="dumbbell-shrugs" /> Dumbbell Shrugs</label></li>
-      </ul>
-    </section>
+  <!-- Workout Input Form -->
+  <section id="workout-form">
+    <h2>Add Workout</h2>
+    <form id="addWorkoutForm">
+      <label>
+        Exercise: 
+        <input type="text" id="exerciseInput" required />
+      </label>
+      <label>
+        Reps: 
+        <input type="number" id="repsInput" required min="1" />
+      </label>
+      <label>
+        Weight (kg): 
+        <input type="number" id="weightInput" required min="0" step="0.1" />
+      </label>
+      <button type="submit">Add Workout</button>
+    </form>
+  </section>
 
-    <section id="legs" class="day">
-      <h2>Leg Day</h2>
-      <ul>
-        <li><label><input type="checkbox" data-ex="back-squats" /> Barbell Back Squats</label></li>
-        <li><label><input type="checkbox" data-ex="bulgarian-split" /> Bulgarian Split Squats</label></li>
-        <li><label><input type="checkbox" data-ex="leg-press" /> Leg Press</label></li>
-        <li><label><input type="checkbox" data-ex="romanian-deadlifts" /> Romanian Deadlifts</label></li>
-        <li><label><input type="checkbox" data-ex="leg-curls" /> Seated/Lying Leg Curls</label></li>
-        <li><label><input type="checkbox" data-ex="glute-bridges" /> Glute Bridges</label></li>
-        <li><label><input type="checkbox" data-ex="standing-calf-raises" /> Standing Calf Raises</label></li>
-        <li><label><input type="checkbox" data-ex="seated-calf-raises" /> Seated Calf Raises</label></li>
-      </ul>
-    </section>
-  </main>
+  <!-- Time Frame Selector -->
+  <section id="timeframe-section">
+    <h2>View Progress</h2>
+    <label for="timeframeSelect">Select Time Frame:</label>
+    <select id="timeframeSelect">
+      <option value="lastWorkout">Since Last Workout</option>
+      <option value="lastWeek">Since Last Week</option>
+      <option value="lastMonth">Since Last Month</option>
+      <option value="custom">Custom Range</option>
+    </select>
 
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker
-        .register("service-worker.js")
-        .then(() => console.log("Service Worker registered"))
-        .catch((err) => console.error("Service Worker registration failed:", err));
-    });
-  }
-</script>
+    <div id="customDateRange" style="display:none; margin-top:10px;">
+      <label>From: <input type="date" id="startDate" /></label>
+      <label>To: <input type="date" id="endDate" /></label>
+      <button id="applyCustomRange">Apply</button>
+    </div>
+  </section>
 
+  <!-- Stats Display -->
+  <section id="stats-section">
+    <h2>Workout Stats</h2>
+    <div id="statsContainer">
+      <!-- Stats for each exercise will be inserted here -->
+    </div>
+  </section>
+
+  <script src="app.js"></script>
 </body>
 </html>
