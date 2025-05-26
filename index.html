@@ -62,6 +62,28 @@
     </section>
   </main>
 
+  <button id="addWorkoutBtn">Add Workout</button>
+
+  <div id="workoutModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="closeModal" style="float:right;cursor:pointer;">&times;</span>
+      <h3>Add Workout</h3>
+      <form id="workoutForm">
+        <label>
+          Workout Name:
+          <input type="text" id="workoutName" required />
+        </label>
+        <br />
+        <label>
+          Date:
+          <input type="date" id="workoutDate" required />
+        </label>
+        <br />
+        <button type="submit">Save Workout</button>
+      </form>
+    </div>
+  </div>
+  
 <script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
