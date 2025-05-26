@@ -3,58 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>RepFlow - Workout Tracker</title>
+  <title>Workout Tracker</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h1>RepFlow Workout Tracker</h1>
+  <header>
+    <h1>Workout Tracker</h1>
+  </header>
+  <main>
+    <section id="workout-entry-section">
+      <form id="workoutForm">
+        <label for="categorySelect">Category:</label>
+        <select id="categorySelect" required>
+          <option value="">Select category</option>
+          <option value="legs">Legs</option>
+          <option value="shoulders">Shoulders</option>
+          <option value="biceps">Biceps</option>
+          <option value="triceps">Triceps</option>
+          <option value="back">Back</option>
+          <option value="chest">Chest</option>
+          <option value="core">Core</option>
+          <option value="cardio">Cardio</option>
+          <option value="other">Other</option>
+        </select>
 
-  <!-- Workout Input Form -->
-  <section id="workout-form">
-    <h2>Add Workout</h2>
-    <form id="addWorkoutForm">
-      <label>
-        Exercise: 
-        <input type="text" id="exerciseInput" required />
-      </label>
-      <label>
-        Reps: 
-        <input type="number" id="repsInput" required min="1" />
-      </label>
-      <label>
-        Weight (kg): 
-        <input type="number" id="weightInput" required min="0" step="0.1" />
-      </label>
-      <button type="submit">Add Workout</button>
-    </form>
-  </section>
+        <label for="exerciseInput">Exercise:</label>
+        <input list="exerciseList" id="exerciseInput" placeholder="Select or type exercise" required />
+        <datalist id="exerciseList">
+          <!-- Dynamically populated -->
+        </datalist>
 
-  <!-- Time Frame Selector -->
-  <section id="timeframe-section">
-    <h2>View Progress</h2>
-    <label for="timeframeSelect">Select Time Frame:</label>
-    <select id="timeframeSelect">
-      <option value="lastWorkout">Since Last Workout</option>
-      <option value="lastWeek">Since Last Week</option>
-      <option value="lastMonth">Since Last Month</option>
-      <option value="custom">Custom Range</option>
-    </select>
+        <label for="repsInput">Reps:</label>
+        <input type="number" id="repsInput" min="1" required />
 
-    <div id="customDateRange" style="display:none; margin-top:10px;">
-      <label>From: <input type="date" id="startDate" /></label>
-      <label>To: <input type="date" id="endDate" /></label>
-      <button id="applyCustomRange">Apply</button>
-    </div>
-  </section>
+        <label for="weightInput">Weight (kg):</label>
+        <input type="number" id="weightInput" min="0" step="0.1" required />
 
-  <!-- Stats Display -->
-  <section id="stats-section">
-    <h2>Workout Stats</h2>
-    <div id="statsContainer">
-      <!-- Stats for each exercise will be inserted here -->
-    </div>
-  </section>
+        <button type="submit" id="submitBtn">Add Workout</button>
+        <button type="button" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
+      </form>
+    </section>
 
+    <section id="filter-section">
+      <label for="filterCategory">Filter by Category:</label>
+      <select id="filterCategory">
+        <option value="all">All</option>
+        <option value="legs">Legs</option>
+        <option value="shoulders">Shoulders</option>
+        <option value="biceps">Biceps</option>
+        <option value="triceps">Triceps</option>
+        <option value="back">Back</option>
+        <option value="chest">Chest</option>
+        <option value="core">Core</option>
+        <option value="cardio">Cardio</option>
+        <option value="other">Other</option>
+      </select>
+    </section>
+
+    <section id="timeframe-section">
+      <label for="timeframeSelect">Select Timeframe:</label>
+      <select id="timeframeSelect">
+        <option value="lastWorkout">Since Last Workout</option>
+        <option value="lastWeek" selected>Last Week</option>
+        <option value="lastMonth">Last Month</option>
+        <option value="custom">Custom Range</option>
+      </select>
+
+      <div id="customDateRange" style="display:none;">
+        <label for="startDateInput">Start:</label>
+        <input type="date" id="startDateInput" />
+        <label for="endDateInput">End:</label>
+        <input type="date" id="endDateInput" />
+        <button id="applyCustomRangeBtn">Apply</button>
+      </div>
+    </section>
+
+    <section id="workouts-section">
+      <h2>Workouts</h2>
+      <div id="workoutList"></div>
+    </section>
+
+    <section id="stats-section">
+      <h2>Exercise Stats</h2>
+      <div id="statsContainer"></div>
+    </section>
+
+    <section id="category-stats-section">
+      <h2>Category (Muscle Group) Summary</h2>
+      <div id="categoryStatsContainer"></div>
+    </section>
+
+    <section id="charts-section">
+      <h2>Progress Charts</h2>
+      <canvas id="repsChart" height="180"></canvas>
+      <canvas id="weightChart" height="180"></canvas>
+      <canvas id="categoryRepsChart" height="180"></canvas>
+      <canvas id="categoryWeightChart" height="180"></canvas>
+    </section>
+  </main>
+  <footer>
+    <p>Workout Tracker &copy; 2025</p>
+  </footer>
   <script src="app.js"></script>
 </body>
 </html>
