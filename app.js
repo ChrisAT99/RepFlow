@@ -71,7 +71,7 @@ categorySelect.addEventListener('change', () => {
 // Form submit (add/update)
 workoutForm.addEventListener('submit', e => {
   e.preventDefault();
-  const category = categorySelect.value.trim();
+  const category = categorySelect.value.trim().toLowerCase();
   const exercise = exerciseInput.value.trim();
   const reps = parseInt(repsInput.value, 10);
   const weight = parseFloat(weightInput.value);
@@ -171,11 +171,13 @@ applyCustomRangeBtn.addEventListener('click', () => {
 // --- Functions ---
 
 function saveWorkouts() {
+  console.log('Saving workouts:', workouts);
   localStorage.setItem('workouts', JSON.stringify(workouts));
 }
 
 function loadWorkouts() {
   const saved = localStorage.getItem('workouts');
+  console.log('Loaded workouts:', saved);
   if (saved) {
     try {
       const parsed = JSON.parse(saved);
@@ -189,7 +191,8 @@ function loadWorkouts() {
 }
 
 function populateExerciseList() {
-  const category = categorySelect.value.toLowerCase();
+  const category = categorySelect.value.trim().toLowerCase();
+  console.log('populateExerciseList category:', category);
   exerciseList.innerHTML = '';
   if (presetWorkouts[category]) {
     presetWorkouts[category].forEach(ex => {
@@ -199,8 +202,6 @@ function populateExerciseList() {
     });
   }
 }
-
-// ... rest of your functions remain unchanged ...
 
 function filterWorkouts() {
   return workouts.filter(w => {
@@ -231,5 +232,4 @@ function filterWorkouts() {
   });
 }
 
-// ... and all the rest unchanged ...
-
+// ... rest of your functions remain unchanged ...
